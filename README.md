@@ -1,2 +1,15 @@
-# transcriber
-Model to convert text to phonetic transcription and vice versa
+# Конвертор текста в фонетическое представление
+
+((( Когда-нибудь здесь появится расширенное описание )))
+
+
+Пример использования:
+
+```
+>>> import transcriber
+>>> t2f = transcriber.Text2Phonems()
+>>> t2f.load()
+>>> t2f.convert1('кошка ловит мышку')
+
+"к о+ ш к ъ#л о+ в' и т#м ы+ ш к у"
+```
