@@ -3,7 +3,7 @@ import setuptools
 
 setuptools.setup(
     name="transcriber",
-    version="0.0.1",
+    version="0.0.3",
     author="Ilya Koziev",
     author_email="inkoziev@gmail.com",
     description="Phonetic transcription of text",

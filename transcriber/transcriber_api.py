@@ -48,12 +48,35 @@ class Text2Phonems:
 
         return predicted_output
 
+    def convert(self, texts):
+        nb_samples = len(texts)
+        tokenized_input_sentence = np.zeros((nb_samples, self.max_seq_len), dtype=np.int32)
+        for itext, text in enumerate(texts):
+            tokenized_input_sentence[itext, :] = self.input_tokenizer.encode(text, self.max_seq_len)
+
+        tokenized_target_sentence = np.zeros((nb_samples, self.max_seq_len), dtype=np.int32)
+        tokenized_target_sentence[:, 0] = BEG_TOKEN_ID
+
+        for i in range(self.max_seq_len-1):
+            predictions = self.model({'encoder_inputs': tokenized_input_sentence,
+                                      'decoder_inputs': tokenized_target_sentence})
+
+            for itext in range(nb_samples):
+                sampled_token_index = np.argmax(predictions[itext, i, :])
+                tokenized_target_sentence[itext, i+1] = sampled_token_index
+
+        predicted_outputs = [self.output_tokenizer.decode(tokenized_target_sentence[itext, :].tolist()) for itext in range(nb_samples)]
+        return predicted_outputs
+
 
 if __name__ == '__main__':
     t2f = Text2Phonems()
     t2f.load('../tmp')
     res = t2f.convert1('кошка ловит мышку')
-    print(res)
+    print('convert1 => ', res)
+
+    res = t2f.convert(['кошка ловит мышку', 'белая береза под моим окном'])
+    print('convert => ', res)
 
 
 
