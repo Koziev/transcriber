@@ -113,9 +113,9 @@ class TextTokenizer:
     def encode(self, text, pad_to_len=0, add_walls=True):
         if self.is_char_level:
             if add_walls:
-                ids = [BEG_TOKEN_ID] + [self.stoi[c] for c in text] + [END_TOKEN_ID]
+                ids = [BEG_TOKEN_ID] + [self.stoi.get(c, UNK_TOKEN_ID) for c in text] + [END_TOKEN_ID]
             else:
-                ids = [self.stoi[c] for c in text]
+                ids = [self.stoi.get(c, UNK_TOKEN_ID) for c in text]
         else:
             if add_walls:
                 ids = [BEG_TOKEN_ID] + self.bpe.encode([text], output_type=yttm.OutputType.ID)[0] + [END_TOKEN_ID]
