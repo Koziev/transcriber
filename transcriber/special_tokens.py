@@ -1,0 +1,7 @@
+PAD_TOKEN = ''
+BEG_TOKEN = '\b'
+END_TOKEN = '\n'
+
+PAD_TOKEN_ID = 0
+BEG_TOKEN_ID = 1
+END_TOKEN_ID = 2
